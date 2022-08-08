@@ -16,7 +16,7 @@ public class bigEventConsumer extends PlatformEventAbstractConsumer{
                 system.debug(a);
                 system.debug('NAME:' + a.Name);
                 if(be.action == 'Create'){
-                    upsert a;
+                   AccountsService.createWithName(a.Name);
                 }
             }
         }

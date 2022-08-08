@@ -41,15 +41,10 @@ public with sharing class AccountsServiceImpl
         {
             System.debug('No Accounts found with name of \'' + nameOfAccount + '\'.  Creating one now.');
             IApplicationSObjectUnitOfWork uow = Application.UnitOfWork.newInstance();
-            uow.registerNew( new Account(name = nameOfAccount) );
-            uow.registerNew( new Account(name = nameOfAccount) );
-            uow.registerNew( new Account(name = nameOfAccount) );
-            List<Account> fourRecords = new List<Account>();
-            fourRecords.add( new Account(name = nameOfAccount) );
-            fourRecords.add( new Account(name = nameOfAccount) );
-            fourRecords.add( new Account(name = nameOfAccount) );
-            fourRecords.add( new Account(name = nameOfAccount) );
-            uow.registerNew( fourRecords );
+            // We should define a default Account Owner as this can execute as the System User
+            // when invoked from Platform Events
+            system.debug('Executing as User: ' + UserInfo.getName());
+            uow.registerNew( new Account(name = nameOfAccount,ownerid = '0055e000003YhETAA0') );
             uow.commitWork();
         }
         else 
