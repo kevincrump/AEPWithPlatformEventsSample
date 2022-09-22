@@ -29,4 +29,5 @@ public interface IContactsSelector
 {
     List<Contact> selectById( Set<Id> idSet );
     List<Contact> selectByName( Set<String> nameSet );
+    List<Contact> selectByEmail( Set<String> emailSet);
 }

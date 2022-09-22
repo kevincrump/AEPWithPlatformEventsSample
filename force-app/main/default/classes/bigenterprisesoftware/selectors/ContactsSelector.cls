@@ -62,4 +62,9 @@ public with sharing class ContactsSelector
     {
         return Database.query( newQueryFactory().setCondition( Contact.Name + ' in :nameSet').toSOQL() );
     }
+
+    public List<Contact> selectByEmail( Set<String> emailSet)
+    {
+        return Database.query( newQueryFactory().setCondition( Contact.Email + ' in :emailSet').toSOQL() );
+    }
 }

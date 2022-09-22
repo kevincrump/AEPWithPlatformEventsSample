@@ -19,6 +19,14 @@ public class bigEventConsumer extends PlatformEventAbstractConsumer{
                    AccountsService.createWithName(a.Name);
                 }
             }
+            if(t == Contact.class){
+                Contact c = (Contact)be.sobj;
+                system.debug(c);
+                system.debug('EMAIL:' + c.email);
+                if(be.action == 'Create'){
+                   ContactsService.createContact(c.firstName,c.lastName,c.email);
+                }
+            }
         }
     }
     public class BigEvent{
