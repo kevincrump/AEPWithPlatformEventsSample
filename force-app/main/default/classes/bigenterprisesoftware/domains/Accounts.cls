@@ -54,4 +54,10 @@ public with sharing class Accounts
             return new Accounts(sObjectList);
         }
     }
+    public override void onApplyDefaults() {
+        system.debug('onApplyDefaults executing...');
+    }
+    public override void onValidate() {
+        system.debug('onValidate executing...');
+    }
 }

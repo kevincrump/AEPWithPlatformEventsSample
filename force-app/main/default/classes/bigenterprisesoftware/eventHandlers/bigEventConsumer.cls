@@ -1,4 +1,4 @@
-public class bigEventConsumer extends PlatformEventAbstractConsumer{
+public class BigEventConsumer extends PlatformEventAbstractConsumer{
     public override void runInProcess() {
         System.debug('------Big Event Consumer------');
         System.debug('#events:\n' + events.size());
@@ -11,6 +11,7 @@ public class bigEventConsumer extends PlatformEventAbstractConsumer{
             BigEvent be = (BigEvent)Json.deserialize(e.payload__c, BigEvent.class);
             
             Type t = Type.forName(be.objectType);
+            system.debug('type for name: ' + t);
             if(t == Account.class){
                 Account a = (Account)be.sobj;
                 system.debug(a);
@@ -25,6 +26,16 @@ public class bigEventConsumer extends PlatformEventAbstractConsumer{
                 system.debug('EMAIL:' + c.email);
                 if(be.action == 'Create'){
                    ContactsService.createContact(c.lastName,c.firstName,c.email);
+                }
+            }
+            if(t == Lead.class){
+                Lead l = (Lead)be.sobj;
+                system.debug('LEAD:: ' + l);
+                system.debug('EMAIL:' + l.email);
+                if(be.action == 'Create'){
+                  system.debug(':: CREATE --- LEAD :: ');
+                  LeadsService.createLead( l.salutation, l.lastName, 
+                  l.firstName, l.company, l.email,l.status );
                 }
             }
         }
